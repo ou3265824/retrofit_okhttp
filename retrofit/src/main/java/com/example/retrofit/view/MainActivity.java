@@ -1,4 +1,4 @@
-package com.example.retrofit;
+package com.example.retrofit.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import com.example.retrofit.BackCall.BaseBackCall;
 import com.example.retrofit.IUiView.IMainUi;
+import com.example.retrofit.R;
 import com.example.retrofit.apiserver.ApiServer;
+import com.example.retrofit.event.EventBusBean;
+import com.example.retrofit.event.EventBusUtils;
 import com.example.retrofit.model.bean.ProductDetails;
 import com.example.retrofit.model.modelpresenter.ProduModelPresenter;
 import com.example.retrofit.model.modelpresenter.ProduModelPresenterImpl;
 
 
-public class MainActivity extends AppCompatActivity implements IMainUi{
+public class MainActivity extends AppCompatActivity implements IMainUi,EventBusUtils.onMain<EventBusBean>{
 
     private TextView text;
     private ProduModelPresenter pmp;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements IMainUi{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBusUtils.getDefault().register(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         pmp=new ProduModelPresenterImpl(this);
@@ -43,7 +47,12 @@ public class MainActivity extends AppCompatActivity implements IMainUi{
 
 //                getproduct(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
 
-                pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+//                pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+
+
+                getPview1();
+
+//                getPview(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
 
             }
         });
@@ -53,6 +62,19 @@ public class MainActivity extends AppCompatActivity implements IMainUi{
                 startActivity(new Intent(MainActivity.this, TestActivity.class));
             }
         });
+    }
+
+    public void getPview1(){
+
+
+        pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+    }
+
+    public void getPview(String pid,String cid,String token,String seed){
+
+        pmp.getProduct1(MainActivity.this,pid,cid,token,seed);
+
+//        pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
     }
 
     private void getproduct(String prodid,String custid ){
@@ -158,5 +180,19 @@ public class MainActivity extends AppCompatActivity implements IMainUi{
     @Override
     public void showText(ProductDetails p) {
         text.setText(p.toString());
+    }
+
+    @Override
+    public void onEventMainThread(EventBusBean event) {
+        if(event.getType().equals("1")){
+            text.setText("1212121212121212");
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusUtils.getDefault().unregister(this);
     }
 }
