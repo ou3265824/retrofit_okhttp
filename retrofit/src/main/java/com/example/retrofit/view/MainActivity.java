@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.retrofit.BackCall.BaseBackCall;
-import com.example.retrofit.IUiView.IMainUi;
+import com.example.retrofit.backcall.BaseBackCall;
+import com.example.retrofit.iuiview.IMainUi;
 import com.example.retrofit.R;
 import com.example.retrofit.apiserver.ApiServer;
 import com.example.retrofit.event.EventBusBean;
