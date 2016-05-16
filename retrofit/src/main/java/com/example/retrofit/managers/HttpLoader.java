@@ -1,7 +1,7 @@
 package com.example.retrofit.managers;
 
-import com.example.retrofit.builder.HeaderInterceptor;
-import com.example.retrofit.builder.LoggingInterceptor;
+import com.example.retrofit.Builder.HeaderInterceptor;
+import com.example.retrofit.Builder.LoggingInterceptor;
 import com.example.retrofit.apiserver.Server;
 import com.google.gson.Gson;
 

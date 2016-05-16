@@ -3,7 +3,7 @@ package com.example.retrofit.model.modelimpl;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.retrofit.backcall.BaseBackCall;
+import com.example.retrofit.BackCall.BaseBackCall;
 import com.example.retrofit.apiserver.ApiServer;
 import com.example.retrofit.model.bean.BaseEntity;
 import com.example.retrofit.model.bean.ProductDetails;

@@ -2,8 +2,8 @@ package com.example.retrofit.model.modelpresenter;
 
 import android.content.Context;
 
-import com.example.retrofit.backcall.BaseBackCall;
-import com.example.retrofit.iuiview.IMainUi;
+import com.example.retrofit.BackCall.BaseBackCall;
+import com.example.retrofit.IUiView.IMainUi;
 import com.example.retrofit.model.bean.ProductDetails;
 import com.example.retrofit.model.modelimpl.ProduModel;
 import com.example.retrofit.model.modelimpl.ProduModelImpl;

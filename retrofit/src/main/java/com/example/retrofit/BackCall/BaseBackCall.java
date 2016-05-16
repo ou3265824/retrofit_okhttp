@@ -6,6 +6,7 @@ package com.example.retrofit.BackCall;
 public abstract class BaseBackCall<T> {
 
     public abstract void onFailure(Throwable t);
+
     public abstract void onSucced(T t);
 
 }

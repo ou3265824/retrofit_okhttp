@@ -22,7 +22,6 @@ public class HeaderInterceptor implements Interceptor{
         Request request=chain.request().newBuilder()
                 .addHeader(KOTEN,Chek.getToken())
                 .addHeader(SEED, Chek.getSeed()).build();
-
         return chain.proceed(request);
     }
 
