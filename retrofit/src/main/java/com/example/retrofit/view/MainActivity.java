@@ -3,7 +3,6 @@ package com.example.retrofit.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import com.example.retrofit.BackCall.BaseBackCall;
 import com.example.retrofit.IUiView.IMainUi;
 import com.example.retrofit.R;
 import com.example.retrofit.apiserver.ApiServer;
+import com.example.retrofit.base.BaseActivity;
 import com.example.retrofit.event.EventBusBean;
 import com.example.retrofit.event.EventBusUtils;
 import com.example.retrofit.managers.ImageManager;
@@ -24,43 +24,58 @@ import com.example.retrofit.model.modelpresenter.ProduModelPresenter;
 import com.example.retrofit.model.modelpresenter.ProduModelPresenterImpl;
 
 
-public class MainActivity extends AppCompatActivity implements IMainUi,EventBusUtils.onMain<EventBusBean>{
+public class MainActivity extends BaseActivity implements IMainUi, EventBusUtils.onMain<EventBusBean> {
 
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
+//    @Bind(R.id.text)
+//    TextView text;
+//    @Bind(R.id.img)
+//    ImageView img;
+//    @Bind(R.id.fab)
+//    FloatingActionButton fab;
     private TextView text;
     private ProduModelPresenter pmp;
-    private String url="http://down.ddearn.com/tokenapi/tip/shareCoupon.png";
+    private String url = "http://down.ddearn.com/tokenapi/tip/shareCoupon.png";
+
+    @Override
+    public View getLayout() {
+        View view=getLayoutInflater().inflate(R.layout.content_main,null);
+        return view;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+//        ButterKnife.bind(this);
         EventBusUtils.getDefault().register(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        pmp=new ProduModelPresenterImpl(this);
-        text= (TextView) findViewById(R.id.text);
-        ImageView img= (ImageView) findViewById(R.id.img);
-        ImageManager.getInstace().displayImage(url,img);
+        pmp = new ProduModelPresenterImpl(this);
+        text = (TextView) findViewById(R.id.text);
+        ImageView img = (ImageView) findViewById(R.id.img);
+        ImageManager.getInstace().displayImage(url, img);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                getprode(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
-
-//                getproduct(ApiServer.pid,ApiServer.cid);
-
-//                getproduct(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
-
-//                pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
-
-
-                getPview1();
-
-//                getPview(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
-
-            }
-        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                getprode(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+//
+////                getproduct(ApiServer.pid,ApiServer.cid);
+//
+////                getproduct(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+//
+////                pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+//
+//
+//                getPview1();
+//
+////                getPview(ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+//
+//            }
+//        });
         findViewById(R.id.text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,20 +84,20 @@ public class MainActivity extends AppCompatActivity implements IMainUi,EventBusU
         });
     }
 
-    public void getPview1(){
+    public void getPview1() {
 
 
-        pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
+        pmp.getProduct1(MainActivity.this, ApiServer.pid, ApiServer.cid, ApiServer.token, ApiServer.seed);
     }
 
-    public void getPview(String pid,String cid,String token,String seed){
+    public void getPview(String pid, String cid, String token, String seed) {
 
-        pmp.getProduct1(MainActivity.this,pid,cid,token,seed);
+        pmp.getProduct1(MainActivity.this, pid, cid, token, seed);
 
 //        pmp.getProduct1(MainActivity.this,ApiServer.pid,ApiServer.cid,ApiServer.token,ApiServer.seed);
     }
 
-    private void getproduct(String prodid,String custid ){
+    private void getproduct(String prodid, String custid) {
         new ProduModelPresenterImpl().getProduct(prodid, custid, new BaseBackCall<ProductDetails>() {
             @Override
             public void onFailure(Throwable t) {
@@ -96,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements IMainUi,EventBusU
         });
     }
 
-    private void getproduct(String prodid,String custid,String token,String seed){
+    private void getproduct(String prodid, String custid, String token, String seed) {
         new ProduModelPresenterImpl().getProduct(getApplicationContext(), prodid, custid, token, seed, new BaseBackCall<ProductDetails>() {
 
             @Override
@@ -189,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements IMainUi,EventBusU
 
     @Override
     public void onEventMainThread(EventBusBean event) {
-        if(event.getType().equals("1")){
+        if (event.getType().equals("1")) {
             text.setText("1212121212121212");
         }
     }

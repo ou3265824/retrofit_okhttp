@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.example.retrofit.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -35,8 +34,11 @@ public class ImageManager {
         ImageLoader.getInstance().init(imageLoaderConfiguration);
     }
 
+    public void displayImage(String url,ImageView imageView,int loading,int fail){
+        ImageLoader.getInstance().displayImage(url, imageView, setOptions(loading, fail));
+    }
     public void displayImage(String url,ImageView imageView){
-        ImageLoader.getInstance().displayImage(url,imageView,setOptions(R.drawable.ic_menu_camera, R.drawable.ic_menu_gallery));
+        ImageLoader.getInstance().displayImage(url,imageView);
     }
 
     private DisplayImageOptions setOptions(int loading,int fail){
