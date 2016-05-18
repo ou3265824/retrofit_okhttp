@@ -3,7 +3,6 @@ package com.example.retrofit.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.example.retrofit.apiserver.ApiServer;
 import com.example.retrofit.base.BaseActivity;
 import com.example.retrofit.event.EventBusBean;
 import com.example.retrofit.event.EventBusUtils;
-import com.example.retrofit.managers.ImageManager;
 import com.example.retrofit.model.bean.ProductDetails;
 import com.example.retrofit.model.modelpresenter.ProduModelPresenter;
 import com.example.retrofit.model.modelpresenter.ProduModelPresenterImpl;
@@ -38,11 +36,12 @@ public class MainActivity extends BaseActivity implements IMainUi, EventBusUtils
     private ProduModelPresenter pmp;
     private String url = "http://down.ddearn.com/tokenapi/tip/shareCoupon.png";
 
+
     @Override
-    public View getLayout() {
-        View view=getLayoutInflater().inflate(R.layout.content_main,null);
-        return view;
+    public int getLayout() {
+        return R.layout.activity_main;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +49,12 @@ public class MainActivity extends BaseActivity implements IMainUi, EventBusUtils
 //        setContentView(R.layout.activity_main);
 //        ButterKnife.bind(this);
         EventBusUtils.getDefault().register(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         pmp = new ProduModelPresenterImpl(this);
         text = (TextView) findViewById(R.id.text);
         ImageView img = (ImageView) findViewById(R.id.img);
-        ImageManager.getInstace().displayImage(url, img);
+//        ImageManager.getInstace().displayImage(url, img);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
