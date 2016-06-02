@@ -1,4 +1,4 @@
-package com.example.retrofit.view;
+package com.example.retrofit.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

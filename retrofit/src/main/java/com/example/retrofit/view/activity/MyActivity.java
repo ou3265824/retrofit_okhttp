@@ -1,4 +1,4 @@
-package com.example.retrofit.view;
+package com.example.retrofit.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,23 +7,43 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.retrofit.R;
+import com.example.retrofit.base.BaseActivity;
 import com.example.retrofit.event.EventBusBean;
 import com.example.retrofit.event.EventBusUtils;
+import com.example.retrofit.utils.ToastUtil;
+import com.example.retrofit.view.adapter.RecycleHolder;
+import com.example.retrofit.view.adapter.RecyclerAdapter;
 
-public class MyActivity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+
+public class MyActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    @Bind(R.id.recycle)
+    RecyclerView recycle;
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_my;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+//        setContentView(R.layout.activity_my);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,7 +54,7 @@ public class MyActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                EventBusBean eventBusBean=new EventBusBean();
+                EventBusBean eventBusBean = new EventBusBean();
                 eventBusBean.setType("1");
                 EventBusUtils.getDefault().post(eventBusBean);
             }
@@ -48,6 +68,37 @@ public class MyActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        get();
+    }
+
+    private void get(){
+        List<String> data=new ArrayList<>();
+        for (int i=0;i<50;i++){
+            data.add("a"+i);
+        }
+        recycle.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
+        recycle.setItemAnimator(new DefaultItemAnimator());
+//        recycle.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        RecyclerAdapter<String> adapter=new RecyclerAdapter<String>(this,data,R.layout.item_recycle){
+
+            @Override
+            public void convert(RecycleHolder holder, String data, int position) {
+                holder.setText(R.id.item_test,data);
+            }
+        };
+        recycle.setAdapter(adapter);
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClickListener(View view, int position) {
+                ToastUtil.showShort(getApplicationContext(), "点击"+position);
+            }
+        });
+        adapter.setOnItemLongClickListener(new RecyclerAdapter.OnItemLongClickListener() {
+            @Override
+            public void OnItemLongClickListener(View view, int position) {
+                ToastUtil.showShort(getApplicationContext(), "长按"+position);
+            }
+        });
     }
 
     @Override

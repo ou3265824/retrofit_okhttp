@@ -4,17 +4,14 @@ import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Looper;
-import android.support.v7.app.AlertDialog;
 
 import com.example.retrofit.base.BaseApplication;
-import com.example.retrofit.view.MainActivity;
+import com.example.retrofit.view.activity.MainActivity;
 
 import static android.support.v7.app.AlertDialog.*;
 
